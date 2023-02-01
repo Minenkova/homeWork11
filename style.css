@@ -16,6 +16,8 @@
  width: 500px;
  border-radius: 10px;
 }
+
+
 .selected__info {
     display: flex;
     justify-content: center;
@@ -27,15 +29,24 @@
     border-radius: 10px;
     margin: 15px 0;
 }
+
 .selected__info--premium {
-    background-color: rgb(88, 160, 88);
+    background-color: rgb(205, 178, 190);
     outline: 4px solid rgb(114, 113, 113);
-    transition: all 0.3s;
+    transition: all 0.2s;
+    box-shadow: 10px 7px 7px #00072d;
 }
+
 button {
     margin: 10px;
     border-radius: 5px;
 }
+
+button:hover {
+    cursor: pointer;
+    background-color: #9cb8d3;
+}
+
 .btn__back{
     background-color: rgb(129, 144, 139);
 }

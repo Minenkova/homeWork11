@@ -671,13 +671,12 @@ const mocData = `{
     ]
 }`;
 const obj = JSON.parse(mocData);
-console.log(obj);
 
 let arrObj = [...Object.values(obj.results)];
 
 const divWrap = document.getElementsByClassName("wrap");
-const listWrap = document.getElementsByClassName("list__wrap"); // пустой див
-const addButton = document.getElementById("addButton"); // кнопка добавить
+const listWrap = document.getElementsByClassName("list__wrap"); // empty div
+const addButton = document.getElementById("addButton"); // button add
 const selectedDivs = document.getElementsByClassName("selected__info"); //array of new divs
 const outputOfInformation = document.getElementsByClassName("selected__text");
 const backButton = document.getElementsByClassName("btn__back");
@@ -695,8 +694,6 @@ addButton.addEventListener("click", (event) => {
   }
 });
 
-let currentDiv = undefined;
-
 listWrap[0].addEventListener("click", (event) => {
   const nameOfPerson = event.target.getAttribute("p-name");
   if (nameOfPerson === null) {
@@ -704,38 +701,45 @@ listWrap[0].addEventListener("click", (event) => {
   } else {
     outputOfInformation[0].innerText = `Selected person ${nameOfPerson}`;
   }
-  let el = document.querySelectorAll('.selected__info');
-
-   for (let user = 0; user < el.length; user++) {
-
-      if(el[user].classList.contains('selected__info--premium')) {
-
-         el[user].classList.remove('selected__info--premium');
-
-      }
-   };  
-   selectedDivs[0].classList.add('selected__info--premium');
-   // Подскажи пожалуйста почему не работает код ниже?
-//   if (currentDiv) {
-//     event.target.classList.remove("selected__info--premium");
-//   }
-//   currentDiv = event.target;
-//   event.target.classList.add("selected__info--premium");
-//   console.log(event.target);
 });
 
+const currentDiv = undefined;
+const el = document.querySelector(".selected__info");
+console.log(el);
+
+// вариант2
+// let selected = undefined; // пусто
+// selectedDivs.forEach(item => {
+//   item.addEventListener('click', (event) => {
+//     console.log(event);
+//     console.log(fvefbebbnng);
+//     if (selected) {
+//       selected.classList.remove('selected__info--premium');
+//     }
+//     selected = event.target;
+//     event.target.classList.add('selected__info--premium');
+//   })
+// });
 
 const actionList = {
+  // удаление дива
   delete: (element) => {
     element.remove();
   },
 };
 
+let currentSelection = undefined;
+
 function handleRecordAction(event) {
+  if (currentSelection) {
+    // made frame
+    currentSelection.classList.remove("selected__info--premium");
+  }
+  currentSelection = event.target;
+  event.target.classList.add("selected__info--premium");
+
   const currentRecord = event.target;
   const action = event.target.getAttribute("btn-name");
-  console.log(action);
-  console.log(currentRecord.parentElement);
 
   if (action === "delete") {
     actionList[action](currentRecord.parentElement);
